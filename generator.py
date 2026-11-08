@@ -13,7 +13,8 @@ def positive_prices(lines: Iterable[str]) -> Iterator[float]:
         except ValueError:
             continue
 
-        if value > 0 and math.isfinite(value) == True:
+        #if math.isfinite(value) and value > 0:
+        if value > 0:
             yield value
 
 

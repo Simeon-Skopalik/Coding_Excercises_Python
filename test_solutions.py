@@ -82,3 +82,7 @@ def test_positive_prices_is_single_pass():
     gen = positive_prices(["1", "2"])
     assert list(gen) == [1.0, 2.0]
     assert list(gen) == []       # exhausted, as in your sum(g) question
+
+def test_positive_prices_rejects_nan_and_infinity():
+    lines = ["nan", "inf", "-inf", "1e3"]
+    assert list(positive_prices(lines)) == [1000.0]
