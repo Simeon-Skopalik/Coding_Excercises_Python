@@ -37,9 +37,10 @@ def top_k_frequent(nums: list[int], k: int) -> list[int]:
         k: Number of most frequent values to return
         
     Returns:
-        The k most frequent values. Oder among values with equal
+        The k most frequent values. Order among values with equal
         counts is not guaranteed. If k exceeds the number of distinct
-        values, all distinct values are returned.
+        values, all distinct values are returned. 
+        If the list is empty it returns and empty list
     
     """
     counts = Counter(nums) # Count how often each number appears
