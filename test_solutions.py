@@ -1,4 +1,5 @@
 import pytest
+import logging
 
 from solutions import two_sum, top_k_frequent
 from audit import AuditLog
@@ -44,11 +45,27 @@ def test_top_k_frequent_edge_cases(nums, k, expected):
 
 ### Audit Log Test ### --------------------------------------------------------
 
-def test_audit_log_prints_start_and_end(capsys):
-    with AuditLog("job"):
-        pass
+def test_audit_log_prints_start_and_end(caplog):
+    with caplog.at_level(logging.INFO):
+        with AuditLog("job"):
+            pass
 
-    output = capsys.readouterr().out
+    messages = [record.getMessage() for record in caplog.records]
+
+    assert messages == ["START job", "END job"]
+
+
+def test_audit_log_records_failures(caplog):
+        with caplog.at_level(logging.INFO):
+            with pytest.raises(ValueError):
+                with AuditLog("job"):
+                    raise ValueError("bad price")
+
+        messages = [record.getMessage() for record in caplog.records]
+
+        assert messages == ["START job", "FAILED job: bad price"]
+        assert caplog.records[-1].levelno == logging.ERROR
+
+
+
     
-
-    assert output == "START: job\nEND: job\n"
