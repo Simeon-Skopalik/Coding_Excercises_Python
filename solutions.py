@@ -19,12 +19,14 @@ def two_sum(nums: list[int], target: int) -> list[int]:
     seen= {}
     for i, x in enumerate(nums):
         need = target - x
+        
         if need in seen:
             return [seen[need], i]
-       
+        
         seen[x] = i
 
     raise ValueError("No two numbers sum to the target")    
+  
 
 ### Top K Frequent
 def top_k_frequent(nums: list[int], k: int) -> list[int]:
